@@ -1,19 +1,12 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token_2022::{self, TransferChecked};
 use anchor_spl::token_interface::{Mint, Token2022, TokenAccount};
-use std::str::FromStr;
-declare_id!("G73rpG7HAaPzJtEH3pzpkrY21t8rdMKkUv6Hry3GTcqs");
 
-pub const MINT_ADDRESS: &str = "kchaDE6of6hoXckaUZ7RuQ5LVo1j9v8x4R2bHdiXgbW";
+declare_id!("G73rpG7HAaPzJtEH3pzpkrY21t8rdMKkUv6Hry3GTcqs");
 
 #[program]
 pub mod token2022_transfer {
      use super::*;
-
-    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
-        msg!("Initialized: {:?}", ctx.program_id);
-        Ok(())
-    }
 
     pub fn transfer_token2022(ctx: Context<TransferToken>, amount: u64) -> Result<()> {
         let transfer_cpi_accounts = TransferChecked {
@@ -33,9 +26,6 @@ pub mod token2022_transfer {
 }
 
 #[derive(Accounts)]
-pub struct Initialize {}
-
-#[derive(Accounts)]
 pub struct TransferToken<'info> {
     #[account(mut)]
     pub from: Signer<'info>,
@@ -43,7 +33,6 @@ pub struct TransferToken<'info> {
     pub from_ata: Box<InterfaceAccount<'info, TokenAccount>>,
     #[account(mut)]
     pub to_ata: Box<InterfaceAccount<'info, TokenAccount>>,
-    #[account(address = Pubkey::from_str(MINT_ADDRESS).unwrap())]
     pub mint: Box<InterfaceAccount<'info, Mint>>,
     pub token_program: Program<'info, Token2022>,
 }
