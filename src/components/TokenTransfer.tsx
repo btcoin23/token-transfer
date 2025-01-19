@@ -89,7 +89,7 @@ const TokenTransfer = () => {
     const signature = await solana.signAndSendTransaction(transaction);
     await connection.confirmTransaction(signature.signature);
     setTransactionResult({
-        signature: signature,
+        signature: signature.signature,
         success: true
     });
 
