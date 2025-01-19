@@ -23,7 +23,19 @@ This is a frontend project for solana token transfer contract(Rust).
             }
     }
     ```
-
+- Third, please check the function name and parameters correctly according to your idl data.
+    ```bash
+    const transferIx = await program.methods
+    .transferToken2022(new BN(amount)) //function name
+    .accounts({
+        from: payer, // first parameter
+        fromAta: senderATA, // second parameter
+        toAta: recipientATA, // third parameter
+        mint: mint, // fourth parameter
+        tokenProgram: spl.TOKEN_2022_PROGRAM_ID, // fifth parameter
+    })
+    .transaction();
+    ```
 
 - Then, run the development server:
 
